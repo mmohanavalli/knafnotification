@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "709609223040",
+    "firebase_url": "https://myknafapp.firebaseio.com",
+    "project_id": "myknafapp",
+    "storage_bucket": "myknafapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:709609223040:android:b62d0dea7f3960d0",
+        "android_client_info": {
+          "package_name": "io.ionic.starter.myknafapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "709609223040-30ptlnagbs48uk33633ulvlbo94lf041.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC0YUla6Ncvz3CUI8z2lRTMv1fJbVcZp_0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
