@@ -36,10 +36,8 @@ export class PushPage {
        StatusBar.styleDefault();
        console.log("Platform is " +this.platform.is('android'));
       if (typeof FCMPlugin != 'undefined') {
-      //  debugger;
         FCMPlugin.getToken(
           function (token) {
-        //    debugger;
             console.log("FCM Token" + token);
             alert("FCM Token" + token);
           },

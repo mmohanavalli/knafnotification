@@ -11,9 +11,9 @@
   This is the example project of Local and Push Notification in Ionic 2.
    
   <button ion-button full primary (click)="scheduleNotification()">Schedule User Time</button>
-  <button ion-button color="primary" (click)="postCall()" > Post Request</button>
-  <button ion-button color="danger" (click)="getNotificationList()" > Send Notification List</button>
-  <button ion-button color="primary" (click)="getNotification()" > Send Notification</button>
+  <button ion-button color="dark" (click)="postCall()" > Post Request</button>
+  <button ion-button color="secondary" (click)="getNotificationList()" > Send Notification List</button>
+  <button ion-button color="danger" (click)="getNotification()" > Send Notification</button>
   <ul>
     <li *ngFor="let messages of allMessage">
       {{ messages.id }}

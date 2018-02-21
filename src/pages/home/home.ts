@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, MenuController, AlertController, Platform } from 'ionic-angular';
 import { LocalNotifications } from '@ionic-native/local-notifications';
-//import { Headers, Http, Response } from '@angular/http';
-//import { Observable } from 'rxjs/Observable';
 import { ServerService } from '../../app/server.service';
 import { message } from '../message_model';
 
@@ -17,6 +15,10 @@ export class HomePage {
 
   message:any=[]
 
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad LocalPage');    
+  }
+
   constructor(public navCtrl: NavController, public menuCtrl: MenuController, private platform: Platform, private localNotifications: LocalNotifications,
     alertCtrl: AlertController, private serverService: ServerService) {
     this.platform.ready().then((readySource) => {
@@ -24,7 +26,9 @@ export class HomePage {
         console.log("Platform is cordova");
       }
       else if (this.platform.is('android') || this.platform.is('ios')) {
+        console.log("Platform is android");
       this.localNotifications.on('click', (notification, state) => {
+        console.log("inside notification state");
         let json = JSON.parse(notification.data);
 
         let alert = alertCtrl.create({
@@ -48,7 +52,7 @@ export class HomePage {
           if(data.status === 200){
             console.log("Success"+data._body);
             this.serverText=data._body;
-            this.serverNotification();
+            this.postServerNotification();
         }else{
           console.log("Failure"+data.status);
           }
@@ -79,9 +83,9 @@ getNotification(){
   .subscribe(
      data => {
           this.message = data;
-          console.log("title::"+this.message[0].id)  ;  
+          console.log("id::"+this.message[0].id)  ;  
           console.log("title::"+this.message[0].title)  ;  
-          this.serverNotification();         
+          this.getServerNotification();         
             },
           error => {
            console.error("There is some error to get the data");
@@ -89,15 +93,26 @@ getNotification(){
       );
 }
 
-serverNotification(){
+getServerNotification(){
   this.localNotifications.schedule({
-    id: this.message.id,
-    title: this.message.title,
-    text: this.message.text,
+    id: this.message[0].id,
+    title: this.message[0].title,
+    text: this.message[0].text,
     data: { mydata: 'My hidden message this is' },
     at: new Date(new Date().getTime() + 5 * 1000)
   });
 }
+
+postServerNotification(){
+  this.localNotifications.schedule({
+    id: 10,
+    title: 'Post Notification',
+    text: this.serverText,
+    data: { mydata: 'My hidden message this is' },
+    at: new Date(new Date().getTime() + 5 * 1000)
+  });
+}
+
 
   scheduleNotification() {
     this.localNotifications.schedule({

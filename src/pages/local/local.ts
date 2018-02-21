@@ -5,6 +5,7 @@ import { LocalNotifications } from 'ionic-native';
 
 // For date/time
 import * as moment from 'moment';
+import { ServerService } from '../../app/server.service';
 
 
 /**
@@ -19,6 +20,8 @@ import * as moment from 'moment';
   templateUrl: 'local.html',
 })
 export class LocalPage { 
+
+  serverText : string;
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LocalPage');
@@ -51,17 +54,41 @@ export class LocalPage {
         icon: "https://freeiconshop.com/wp-content/uploads/edd/notification-flat.png"
         });
     }
-    public scheduleDelayNotify() {
-      LocalNotifications.schedule({
-      id: 1,
-      title: "User Scheduled time Notification",
-      text: "Hey!",
-      at: this.time,
-      sound: null,
-      // Let's use an icon from external source
-      icon: "https://freeiconshop.com/wp-content/uploads/edd/notification-flat.png"
-      });
+
+    postCall(){
+      console.log("Inside Post call");
+        this.serverService.userInfoService()
+   .subscribe(
+           data => {     
+            console.log("Inside the data");   
+            console.log("Inside the data"+data._body);               
+          
+            if(data.status === 200){
+              console.log("Success"+data._body);
+              this.serverText=data._body;
+              this.postServerNotification();
+          }else{
+            console.log("Failure"+data.status);
+            }
+            
+          },
+          error => {
+             console.log("Failed Data to show");
+          }
+    );
+  
   }
+
+  postServerNotification(){
+    LocalNotifications.schedule({
+      id: 10,
+      title: 'Post Notification',
+      text: this.serverText,
+    //  data: { mydata: 'My hidden message this is' },
+      at: new Date(new Date().getTime() + 5 * 1000)
+    });
+  }
+   
     public scheduleMultiple() {
         // Schedule multiple notifications
         LocalNotifications.schedule([{
@@ -82,7 +109,7 @@ export class LocalPage {
     minutes: number;
 
     constructor(public navCtrl: NavController, public navParams: NavParams,
-      public platform: Platform, public alertCtrl: AlertController) {
+      public platform: Platform, public alertCtrl: AlertController, private serverService: ServerService) {
   
         this.giveAlert();
         // Get the Date/Time in ISO Format
@@ -113,6 +140,7 @@ export class LocalPage {
                  alert.present();
              });
       }
+     
       setTimeChange(time){
       this.hours = time.hour.value;
       this.minutes = time.minute.value;

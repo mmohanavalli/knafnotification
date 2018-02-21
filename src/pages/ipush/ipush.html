@@ -1,18 +1,23 @@
-<!--
-  Generated template for the IpushPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-
   <ion-navbar>
-    <ion-title>ipush</ion-title>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>IPush</ion-title>
   </ion-navbar>
-
 </ion-header>
 
-
 <ion-content padding>
+ Post message to send Notification to mobile 
+  <button ion-button color="dark" (click)="showPrompt()" > Post Notification</button>
+  <ul>
+    <li *ngFor="let messages of allMessage">
+      {{ messages.id }}
+      {{ messages.title }}
+      {{ messages.text }}
+      </li>
+  </ul>
 
+  <ion-option *ngFor="let messages of message" >{{messages.title}}</ion-option>
+  
 </ion-content>

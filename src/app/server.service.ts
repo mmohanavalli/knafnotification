@@ -11,7 +11,7 @@ export class ServerService {
    
 
    //baseURL =  '/ionic';
-    baseURL = 'http://192.168.0.24:80/ionic';
+    baseURL = 'http://192.168.0.11:80/ionic';
     headers = new Headers({ 'Content-Type': 'application/json' });
 
     /**UserInfo Service */
@@ -23,6 +23,22 @@ export class ServerService {
             });
 
         return this.http.post(this.baseURL + '/user.php',
+            userData,
+            { headers: this.headers })
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+
+    postMessageService(message) {
+
+        let userData = JSON.stringify(
+            {
+                id: message.id,
+                title: message.title,
+                text: message.text
+            });
+
+        return this.http.post(this.baseURL + '/message.php',
             userData,
             { headers: this.headers })
             .map(this.extractData)
